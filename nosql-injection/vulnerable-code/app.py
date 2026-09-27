@@ -6,9 +6,12 @@ client = MongoClient("mongodb+srv://admin:abcdefg@ccsep-data-cluster.hqlqdmc.mon
 db = client["test_db"]
 
 @app.route("/login", methods=["POST"])
+
+# VULNERABLE ADDED: no type-checking on input which allows MongoDB operators like $ne or $gt to be injected instead of a plain string, bypassing the checking for username/password
+
 def login():
-    username = str(request.json.get("username"))
-    password = str(request.json.get("password"))
+    username = request.json.get("username")
+    password = request.json.get("password")
     user = db.users.find_one({"username": username, "password": password})
     if user:
         return jsonify({"message": "Login successful"}), 200
