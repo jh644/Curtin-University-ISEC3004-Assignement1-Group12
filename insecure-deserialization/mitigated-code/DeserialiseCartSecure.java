@@ -55,7 +55,7 @@ public class DeserialiseCartSecure {
                     return ObjectInputFilter.Status.ALLOWED;
                 }
 		
-		// 4. Permit Object arrays (used internally by ArrayList to store its elements)
+		        // 4. Permit Object arrays (used internally by ArrayList to store its elements)
                 if (className.equals("[Ljava.lang.Object;")) {
                     return ObjectInputFilter.Status.ALLOWED;
                 }
